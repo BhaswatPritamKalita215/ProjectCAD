@@ -9796,13 +9796,13 @@ TEST_CASE("DWG R2007 writer round-trips an empty drawing",
   std::filesystem::remove(path);
 
   CountingIface writeIface;
-  dwgRW writer(path.c_str());
+  dwgRW writer(path.string().c_str());
   REQUIRE(writer.write(&writeIface, DRW::AC1021, false));
   REQUIRE(std::filesystem::exists(path));
   CHECK(std::filesystem::file_size(path) > 0);
 
   CountingIface readIface;
-  dwgRW reader(path.c_str());
+  dwgRW reader(path.string().c_str());
   const bool readOk = reader.read(&readIface, false);
   REQUIRE(readOk);
   CHECK(reader.getError() == DRW::BAD_NONE);
@@ -9864,14 +9864,14 @@ TEST_CASE("DWG R2007 control handles remain inline through table records",
 
   R2007ControlWriteIface writeIface;
   {
-    dwgRW writer(path.c_str());
+    dwgRW writer(path.string().c_str());
     writeIface.writer = &writer;
     REQUIRE(writer.write(&writeIface, DRW::AC1021, false));
   }
 
   R2007ControlWriteIface readIface;
   {
-    dwgRW reader(path.c_str());
+    dwgRW reader(path.string().c_str());
     REQUIRE(reader.read(&readIface, false));
     CHECK(reader.getError() == DRW::BAD_NONE);
     CHECK(reader.getVersion() == DRW::AC1021);
@@ -9892,14 +9892,14 @@ TEST_CASE("DWG R2007 writer round-trips a LINE entity",
 
   R2007EntityWriteIface writeIface;
   {
-    dwgRW writer(path.c_str());
+    dwgRW writer(path.string().c_str());
     writeIface.writer = &writer;
     REQUIRE(writer.write(&writeIface, DRW::AC1021, false));
   }
 
   R2007EntityWriteIface readIface;
   {
-    dwgRW reader(path.c_str());
+    dwgRW reader(path.string().c_str());
     REQUIRE(reader.read(&readIface, false));
     CHECK(reader.getError() == DRW::BAD_NONE);
     CHECK(reader.getVersion() == DRW::AC1021);
@@ -9924,14 +9924,14 @@ TEST_CASE("DWG R2013 writer round-trips a zero-source POINTCLOUD",
 
   PointCloudWriteIface writeIface;
   {
-    dwgRW writer(path.c_str());
+    dwgRW writer(path.string().c_str());
     writeIface.writer = &writer;
     REQUIRE(writer.write(&writeIface, DRW::AC1027, false));
   }
 
   PointCloudWriteIface readIface;
   {
-    dwgRW reader(path.c_str());
+    dwgRW reader(path.string().c_str());
     REQUIRE(reader.read(&readIface, false));
     CHECK(reader.getError() == DRW::BAD_NONE);
     CHECK(reader.getVersion() == DRW::AC1027);
@@ -9967,7 +9967,7 @@ TEST_CASE("LibreDWG reads a valid AC1027 POINTCLOUD container",
 
   PointCloudExternalReadWriteIface writeIface;
   {
-    dwgRW writer(path.c_str());
+    dwgRW writer(path.string().c_str());
     writeIface.writer = &writer;
     REQUIRE(writer.write(&writeIface, DRW::AC1027, false));
   }
@@ -10006,7 +10006,7 @@ TEST_CASE("LibreDWG reads a valid AC1027 POINTCLOUDEX container",
 
   PointCloudExWriteIface writeIface;
   {
-    dwgRW writer(path.c_str());
+    dwgRW writer(path.string().c_str());
     writeIface.writer = &writer;
     REQUIRE(writer.write(&writeIface, DRW::AC1027, false));
   }
@@ -10034,7 +10034,7 @@ TEST_CASE("DWG R2013 complete-container frame corruption suppresses POINTCLOUD",
   std::filesystem::remove(path);
 
   PointCloudWriteIface writeIface;
-  dwgRW writer(path.c_str());
+  dwgRW writer(path.string().c_str());
   writeIface.writer = &writer;
   REQUIRE(writer.write(&writeIface, DRW::AC1027, false));
 
@@ -10104,7 +10104,7 @@ TEST_CASE("DWG R2013 repaired POINTCLOUD frame reaches finite-value validation",
   writeIface.sourceOrigin = DRW_Coord{123.45678901234567,
                                       234.56789101234567,
                                       345.67891201234567};
-  dwgRW writer(path.c_str());
+  dwgRW writer(path.string().c_str());
   writeIface.writer = &writer;
   REQUIRE(writer.write(&writeIface, DRW::AC1027, false));
 
@@ -10187,14 +10187,14 @@ TEST_CASE("DWG R2013 writer round-trips a zero-crop POINTCLOUDEX",
 
   PointCloudExWriteIface writeIface;
   {
-    dwgRW writer(path.c_str());
+    dwgRW writer(path.string().c_str());
     writeIface.writer = &writer;
     REQUIRE(writer.write(&writeIface, DRW::AC1027, false));
   }
 
   PointCloudExWriteIface readIface;
   {
-    dwgRW reader(path.c_str());
+    dwgRW reader(path.string().c_str());
     REQUIRE(reader.read(&readIface, false));
     CHECK(reader.getError() == DRW::BAD_NONE);
     CHECK(reader.getVersion() == DRW::AC1027);
@@ -10225,7 +10225,7 @@ TEST_CASE("DWG R2013 repaired POINTCLOUDEX frame reaches finite-value validation
   writeIface.sourceExtentsMin = DRW_Coord{123.45678901234567,
                                           234.56789101234567,
                                           345.67891201234567};
-  dwgRW writer(path.c_str());
+  dwgRW writer(path.string().c_str());
   writeIface.writer = &writer;
   REQUIRE(writer.write(&writeIface, DRW::AC1027, false));
 
@@ -10310,14 +10310,14 @@ TEST_CASE("DWG writer round-trips NAVISWORKSMODEL across handle layouts",
 
     NavisworksModelWriteIface writeIface;
     {
-      dwgRW writer(path.c_str());
+      dwgRW writer(path.string().c_str());
       writeIface.writer = &writer;
       REQUIRE(writer.write(&writeIface, version, false));
     }
 
     NavisworksModelWriteIface readIface;
     {
-      dwgRW reader(path.c_str());
+      dwgRW reader(path.string().c_str());
       REQUIRE(reader.read(&readIface, false));
       CHECK(reader.getError() == DRW::BAD_NONE);
       CHECK(reader.getVersion() == version);
@@ -10383,14 +10383,14 @@ TEST_CASE("DWG writer round-trips Point Cloud definitions across versions",
     writeIface.definitions.push_back(reactorEx);
 
     {
-      dwgRW writer(path.c_str());
+      dwgRW writer(path.string().c_str());
       writeIface.writer = &writer;
       REQUIRE(writer.write(&writeIface, version, false));
     }
 
     PointCloudDefWriteIface readIface;
     {
-      dwgRW reader(path.c_str());
+      dwgRW reader(path.string().c_str());
       REQUIRE(reader.read(&readIface, false));
       CHECK(reader.getError() == DRW::BAD_NONE);
       CHECK(reader.getVersion() == version);
@@ -10455,7 +10455,7 @@ TEST_CASE("RS_FilterDXFRW preserves point-cloud definition dictionary linkage",
   writeIface.definitions.push_back(definition);
 
   {
-    dwgRW writer(sourcePath.c_str());
+    dwgRW writer(sourcePath.string().c_str());
     writeIface.writer = &writer;
     REQUIRE(writer.write(&writeIface, DRW::AC1027, false));
   }
@@ -10492,7 +10492,7 @@ TEST_CASE("RS_FilterDXFRW preserves point-cloud definition dictionary linkage",
 
   PointCloudDictionaryWriteIface readIface;
   {
-    dwgRW reader(outputPath.c_str());
+    dwgRW reader(outputPath.string().c_str());
     REQUIRE(reader.read(&readIface, false));
     CHECK(reader.getError() == DRW::BAD_NONE);
     CHECK(reader.getVersion() == DRW::AC1027);
@@ -10580,7 +10580,7 @@ TEST_CASE("RS_FilterDXFRW preserves nested point-cloud and Navisworks references
   writeIface.colorMap.m_defaultClassificationColorScheme = "Classification";
 
   {
-    dwgRW writer(sourcePath.c_str());
+    dwgRW writer(sourcePath.string().c_str());
     writeIface.writer = &writer;
     REQUIRE(writer.write(&writeIface, DRW::AC1027, false));
   }
@@ -10620,7 +10620,7 @@ TEST_CASE("RS_FilterDXFRW preserves nested point-cloud and Navisworks references
 
   PointCloudReferenceGraphWriteIface readIface;
   {
-    dwgRW reader(outputPath.c_str());
+    dwgRW reader(outputPath.string().c_str());
     REQUIRE(reader.read(&readIface, false));
     CHECK(reader.getError() == DRW::BAD_NONE);
     CHECK(reader.getVersion() == DRW::AC1027);
@@ -10700,7 +10700,7 @@ TEST_CASE("RS_FilterDXFRW remaps colliding point-cloud dictionary handles",
 
   PointCloudDictionaryWriteIface readIface;
   {
-    dwgRW reader(path.c_str());
+    dwgRW reader(path.string().c_str());
     REQUIRE(reader.read(&readIface, false));
     CHECK(reader.getError() == DRW::BAD_NONE);
     CHECK(reader.getVersion() == DRW::AC1027);
@@ -10747,7 +10747,7 @@ TEST_CASE("RS_FilterDXFRW drops dangling point-cloud dictionary entries",
 
   PointCloudDictionaryWriteIface readIface;
   {
-    dwgRW reader(path.c_str());
+    dwgRW reader(path.string().c_str());
     REQUIRE(reader.read(&readIface, false));
     CHECK(reader.getError() == DRW::BAD_NONE);
     CHECK(reader.getVersion() == DRW::AC1027);
@@ -10805,14 +10805,14 @@ TEST_CASE("DWG writer round-trips Navisworks and Point Cloud ColorMap objects ac
     writeIface.colorMap.m_classificationColorRampCount = 1;
 
     {
-      dwgRW writer(path.c_str());
+      dwgRW writer(path.string().c_str());
       writeIface.writer = &writer;
       REQUIRE(writer.write(&writeIface, version, false));
     }
 
     PointCloudMetadataWriteIface readIface;
     {
-      dwgRW reader(path.c_str());
+      dwgRW reader(path.string().c_str());
       REQUIRE(reader.read(&readIface, false));
       CHECK(reader.getError() == DRW::BAD_NONE);
       CHECK(reader.getVersion() == version);
@@ -10903,7 +10903,7 @@ TEST_CASE("RS_FilterDXFRW re-emits typed Navisworks and Point Cloud metadata",
       {3, 1, {"Class Ramp"}});
 
   {
-    dwgRW writer(dwgPath.c_str());
+    dwgRW writer(dwgPath.string().c_str());
     writeIface.writer = &writer;
     REQUIRE(writer.write(&writeIface, DRW::AC1027, false));
   }
@@ -10926,7 +10926,7 @@ TEST_CASE("RS_FilterDXFRW re-emits typed Navisworks and Point Cloud metadata",
   }
 
   PointCloudMetadataWriteIface readIface;
-  dxfRW reader(dxfPath.c_str());
+  dxfRW reader(dxfPath.string().c_str());
   REQUIRE(reader.read(&readIface, false));
   REQUIRE(readIface.navisworksCallbacks == 1);
   REQUIRE(readIface.navisworksModelCallbacks == 1);
@@ -10951,14 +10951,14 @@ TEST_CASE("DWG R2007 writer splits oversized object sections",
   R2007EntityWriteIface writeIface;
   writeIface.linesToWrite = 1024;
   {
-    dwgRW writer(path.c_str());
+    dwgRW writer(path.string().c_str());
     writeIface.writer = &writer;
     REQUIRE(writer.write(&writeIface, DRW::AC1021, false));
   }
 
   R2007EntityWriteIface readIface;
   {
-    dwgRW reader(path.c_str());
+    dwgRW reader(path.string().c_str());
     REQUIRE(reader.read(&readIface, false));
     CHECK(reader.getError() == DRW::BAD_NONE);
     CHECK(reader.getVersion() == DRW::AC1021);
@@ -11003,7 +11003,7 @@ TEST_CASE("DWG R2007 writer is readable by libreDWG",
 
   R2007EntityWriteIface writeIface;
   {
-    dwgRW writer(path.c_str());
+    dwgRW writer(path.string().c_str());
     writeIface.writer = &writer;
     REQUIRE(writer.write(&writeIface, DRW::AC1021, false));
   }

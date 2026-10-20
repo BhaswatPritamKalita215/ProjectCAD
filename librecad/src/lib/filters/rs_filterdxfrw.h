@@ -88,7 +88,7 @@ class DwgWriteFailureTestAccess;
 class RS_FilterDXFRW_DwgWriteIdentityRegistry {
   friend class DwgWriteFailureTestAccess;
 
-protected:
+public:
   enum class DwgWriteSourceKind : std::uint8_t {
     Object,
     Entity,
@@ -128,6 +128,7 @@ protected:
     Unpaired
   };
 
+protected:
   struct DwgWriteIdentityKey {
     DwgWriteSourceKind kind;
     std::uint32_t outputHandle;

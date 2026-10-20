@@ -2789,6 +2789,10 @@ if (BUILD_TESTS)
         librecad/src/lib/filters/tests/shp_shapelib_tests.cpp
         librecad/src/lib/filters/tests/shp_import_filter_tests.cpp
     )
+    if (MSVC)
+        target_compile_options(librecad_tests PRIVATE /bigobj)
+        target_compile_definitions(librecad_tests PRIVATE NOMINMAX)
+    endif ()
 
     # Include directories for rs_math.h and other dependencies
     target_include_directories (librecad_tests PRIVATE

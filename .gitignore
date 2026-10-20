@@ -125,3 +125,5 @@ core.*
 .pixi
 *.egg-info
 node_modules
+build-*/
+*_AUDIT_HANDOFF.md
