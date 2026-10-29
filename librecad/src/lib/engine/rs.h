@@ -390,6 +390,7 @@ namespace RS2 {
         ActionDrawSnakeLine,
         ActionDrawSnakeLineX,
         ActionDrawSnakeLineY,
+        ActionDrawWall,
         ActionDrawCenterMark,
         ActionDrawLineAngleRel,
         ActionDrawLineOrthogonalRel,

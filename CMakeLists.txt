@@ -562,6 +562,8 @@ set (SHARED_SOURCES
      librecad/src/actions/drawing/draw/line/lc_action_draw_line_from_point_to_line.cpp
      librecad/src/actions/drawing/draw/line/lc_action_draw_line_snake.cpp
      librecad/src/actions/drawing/draw/line/lc_action_draw_line_snake.h
+     librecad/src/actions/drawing/draw/line/lc_action_draw_wall.cpp
+     librecad/src/actions/drawing/draw/line/lc_action_draw_wall.h
      librecad/src/actions/drawing/draw/line/lc_action_draw_slice_divide.cpp
      librecad/src/actions/drawing/draw/line/misc/lc_action_draw_bounding_box.cpp
      librecad/src/actions/drawing/draw/line/misc/lc_action_draw_bounding_box.h
@@ -1203,6 +1205,8 @@ set (SHARED_SOURCES
      librecad/src/lib/math/lc_formatter.h
      librecad/src/lib/math/lc_linemath.cpp
      librecad/src/lib/math/lc_linemath.h
+     librecad/src/lib/math/lc_wallmath.cpp
+     librecad/src/lib/math/lc_wallmath.h
      librecad/src/lib/math/lc_archparser.cpp
      librecad/src/lib/math/lc_archparser.h
      librecad/src/lib/math/lc_interval.h
@@ -3443,6 +3447,14 @@ if (BUILD_TESTS)
     add_librecad_filter_micro_test(
         librecad_translation_fallback_tests
         librecad/src/lib/engine/tests/rs_system_translation_tests.cpp)
+    add_librecad_filter_micro_test(
+        wall_math_tests
+        librecad/src/lib/math/tests/wall_math_tests.cpp)
+    add_librecad_filter_micro_test(
+        wall_action_tests
+        librecad/src/lib/creation/tests/lc_action_draw_wall_tests.cpp)
+    target_include_directories(wall_action_tests PRIVATE
+        "${CMAKE_CURRENT_BINARY_DIR}/librecad_lib_autogen/include")
     add_executable(librecad_console_command_utils_tests
         EXCLUDE_FROM_ALL
         librecad/src/main/lc_release_label.cpp

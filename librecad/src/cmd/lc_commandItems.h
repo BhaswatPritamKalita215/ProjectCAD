@@ -140,6 +140,12 @@ const LC_CommandItem g_commandList[] = {
              {"sly", LC_CommandText QT_TRANSLATE_NOOP3("QObject", "rly", "draw snake line (Y)")}},
             RS2::ActionDrawSnakeLineY
         },
+        // draw Wall
+        {
+            {{"wall", LC_CommandText QT_TRANSLATE_NOOP3("QObject", "wall", "draw wall")}},
+            {{"wa", LC_CommandText QT_TRANSLATE_NOOP3("QObject", "wa", "draw wall")}},
+            RS2::ActionDrawWall
+        },
         // draw fast
         {
             {{"dfast", LC_CommandText QT_TRANSLATE_NOOP3("QObject", "dfast", "draw fast")}},

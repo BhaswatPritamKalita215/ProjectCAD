@@ -61,6 +61,7 @@
 #include "lc_action_draw_line_radiant.h"
 #include "lc_action_draw_line_rel_angle.h"
 #include "lc_action_draw_line_snake.h"
+#include "lc_action_draw_wall.h"
 #include "lc_actiondrawlinedirect.h"
 #include "lc_action_draw_mtext.h"
 #include "lc_action_draw_point.h"
@@ -419,6 +420,9 @@ namespace InnerFactory{
             }
             case RS2::ActionDrawSnakeLineY: {
                 return new LC_ActionDrawLineSnake(ctx, RS2::ActionDrawSnakeLineY);
+            }
+            case RS2::ActionDrawWall: {
+                return new LC_ActionDrawWall(ctx);
             }
             case RS2::ActionDrawSliceDivideLine: {
                 return new LC_ActionDrawSliceDivide(ctx, false);
